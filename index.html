@@ -308,8 +308,12 @@
             }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
-                    if (unityInstance.SetFullscreen) {
-                        unityInstance.SetFullscreen(1);
+                    if (canvas.requestFullscreen) {
+                        canvas.requestFullscreen();
+                    } else if (canvas.webkitRequestFullscreen) { // Safari
+                        canvas.webkitRequestFullscreen();
+                    } else if (canvas.msRequestFullscreen) { // IE/Edge
+                        canvas.msRequestFullscreen();
                     } else {
                         alert("Fullscreen mode is not supported on this device.");
                     }
