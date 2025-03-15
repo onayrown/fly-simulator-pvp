@@ -314,6 +314,8 @@
                         canvas.webkitRequestFullscreen();
                     } else if (canvas.msRequestFullscreen) { // IE/Edge
                         canvas.msRequestFullscreen();
+                    } else if (canvas.webkitEnterFullscreen) { // iOS Safari
+                        canvas.webkitEnterFullscreen();
                     } else {
                         alert("Fullscreen mode is not supported on this device.");
                     }
