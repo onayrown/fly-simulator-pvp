@@ -14,9 +14,9 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
         }
 
         .container {
@@ -25,16 +25,16 @@
             padding: 0 20px;
         }
 
-        /* Cabeçalho */
         header {
-            background-color: #2c3e50;
-            color: white;
+            background-color: #0d0d0d;
+            color: #f0f0f0;
             padding: 20px 0;
             text-align: center;
+            border-bottom: 2px solid #3498db;
         }
 
             header h1 {
-                font-size: 2.5em;
+                font-size: 3em;
                 margin-bottom: 10px;
             }
 
@@ -42,32 +42,29 @@
                 font-size: 1.2em;
             }
 
-        /* Layout principal */
         .main-content {
             display: flex;
             flex-wrap: wrap;
             margin: 20px 0;
         }
 
-        /* Área do jogo */
         .game-area {
             flex: 1 1 960px;
-            background-color: #fff;
+            background-color: #2c2c2c;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             padding: 10px;
             margin: 10px;
         }
 
-        /* Área de anúncios lateral */
         .ad-sidebar {
             flex: 0 1 300px;
             margin: 10px;
         }
 
         .ad-container {
-            background-color: #eee;
-            border: 1px dashed #ccc;
+            background-color: #333;
+            border: 1px dashed #555;
             border-radius: 8px;
             height: 600px;
             margin-bottom: 20px;
@@ -76,12 +73,12 @@
             align-items: center;
             text-align: center;
             padding: 10px;
+            color: #ccc;
         }
 
-        /* Anúncios horizontais */
         .ad-horizontal {
-            background-color: #eee;
-            border: 1px dashed #ccc;
+            background-color: #333;
+            border: 1px dashed #555;
             border-radius: 8px;
             height: 100px;
             margin: 20px 10px;
@@ -89,14 +86,15 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            color: #ccc;
         }
 
-        /* Rodapé */
         footer {
-            background-color: #2c3e50;
-            color: white;
+            background-color: #0d0d0d;
+            color: #f0f0f0;
             padding: 20px 0;
             text-align: center;
+            border-top: 2px solid #3498db;
         }
 
             footer .links {
@@ -113,7 +111,6 @@
                         text-decoration: underline;
                     }
 
-        /* Estilos do Unity */
         #unity-container {
             width: 100%;
         }
@@ -195,7 +192,6 @@
     </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
     <header>
         <div class="container">
             <h1>Fly Simulator PVP</h1>
@@ -203,17 +199,14 @@
         </div>
     </header>
 
-    <!-- Anúncio horizontal superior -->
     <div class="container">
         <div class="ad-horizontal">
             <p>Espaço para anúncio (728x90)</p>
         </div>
     </div>
 
-    <!-- Conteúdo principal -->
     <div class="container">
         <div class="main-content">
-            <!-- Área do jogo -->
             <div class="game-area">
                 <div id="unity-container" class="unity-desktop">
                     <canvas id="unity-canvas" tabindex="-1"></canvas>
@@ -231,7 +224,6 @@
                 </div>
             </div>
 
-            <!-- Anúncio lateral -->
             <div class="ad-sidebar">
                 <div class="ad-container">
                     <p>Espaço para anúncio<br>(300x600)</p>
@@ -243,14 +235,12 @@
         </div>
     </div>
 
-    <!-- Anúncio horizontal inferior -->
     <div class="container">
         <div class="ad-horizontal">
             <p>Espaço para anúncio (728x90)</p>
         </div>
     </div>
 
-    <!-- Rodapé -->
     <footer>
         <div class="container">
             <div class="links">
