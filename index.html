@@ -152,10 +152,12 @@
         #unity-footer {
             position: relative;
             margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         #unity-fullscreen-button {
-            float: right;
             width: 38px;
             height: 38px;
             background: url('TemplateData/fullscreen-button.png') no-repeat center;
@@ -163,7 +165,6 @@
         }
 
         #unity-build-title {
-            float: left;
             margin-right: 10px;
             line-height: 38px;
             font-family: arial;
@@ -218,8 +219,8 @@
                     </div>
                     <div id="unity-warning"></div>
                     <div id="unity-footer">
-                        <div id="unity-fullscreen-button"></div>
                         <div id="unity-build-title">Fly Simulator PVP</div>
+                        <button id="unity-fullscreen-button" type="button" aria-label="Tela Cheia"></button>
                     </div>
                 </div>
             </div>
@@ -255,6 +256,8 @@
 
     <script>
         var canvas = document.querySelector("#unity-canvas");
+        var fullScreenButton = document.querySelector("#unity-fullscreen-button");
+        var unityInstance = null;
 
         function unityShowBanner(msg, type) {
             var warningBanner = document.querySelector("#unity-warning");
@@ -274,6 +277,9 @@
             }
             updateBannerVisibility();
         }
+
+        // Verificar se estamos em um dispositivo iOS
+        var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
         var buildUrl = "Build";
         var loaderUrl = buildUrl + "/Build.loader.js";
@@ -305,11 +311,32 @@
         script.onload = () => {
             createUnityInstance(canvas, config, (progress) => {
                 document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
+            }).then((instance) => {
+                unityInstance = instance;
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                    unityInstance.SetFullscreen(1);
-                };
+
+                // Configurar o manipulador de eventos para o botão de tela cheia
+                fullScreenButton.addEventListener("click", function () {
+                    if (isiOS) {
+                        // Solução específica para iOS que usa elementos de vídeo para acionar a tela cheia
+                        try {
+                            // Verificar se o Unity WebGL oferece uma API alternativa para iOS
+                            if (unityInstance.Module && typeof unityInstance.Module.SetFullscreen === "function") {
+                                unityInstance.Module.SetFullscreen(1);
+                            } else {
+                                // Informar ao usuário sobre a limitação no iOS
+                                alert("Modo tela cheia não disponível em iOS. Por favor, use a orientação paisagem para uma melhor experiência.");
+                            }
+                        } catch (e) {
+                            console.log("Erro ao tentar entrar em tela cheia no iOS:", e);
+                            alert("Não foi possível entrar em modo tela cheia neste dispositivo. Por favor, use a orientação paisagem para uma melhor experiência.");
+                        }
+                    } else {
+                        // Para outros navegadores, use a API padrão do Unity
+                        unityInstance.SetFullscreen(1);
+                    }
+                });
+
             }).catch((message) => {
                 alert(message);
             });
